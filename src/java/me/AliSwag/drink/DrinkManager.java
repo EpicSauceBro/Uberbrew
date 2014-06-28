@@ -1,6 +1,7 @@
 package me.AliSwag.drink;
 
 import me.AliSwag.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -48,7 +49,7 @@ public class DrinkManager {
 
         Main.getMainConfig().set(name + ".alcoholContent", percent);
 
-        Main.getMainConfig().set(name + ".displayName", displayName);
+        Main.getMainConfig().set(name + ".displayName", ChatColor.translateAlternateColorCodes('&', displayName));
 
         Main.getMainConfig().set(name + ".name", name);
 

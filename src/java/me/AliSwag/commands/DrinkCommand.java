@@ -48,7 +48,7 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Invaild arguments! " + addHelpMessage);
                     return true;
                 }
-				DrinkManager.addDrink(Integer.parseInt(args[1]), ChatColor.translateAlternateColorCodes('&', args[2]), args[3]);
+				DrinkManager.addDrink(Integer.parseInt(args[1]), args[2], args[3]);
 				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[3]));
 				return true;
 			}
