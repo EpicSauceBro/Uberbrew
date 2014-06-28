@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class DrinkCommand implements CommandExecutor {
 
-    String addHelpMessage = "Usage: /uberbrew add <Alchohl Percent> <DisplayName> <Name>";
+    String addHelpMessage = "Usage: /uberbrew add <Alchohol Percent> <DisplayName> <Name>";
     String listHelpMessage = "Usage: /uberbrew list";
     String infoHelpMessage = "Usage: /uberbrew info [Drink id]";
     String giveHelpMessage = "Usage: /uberbrew give <Drink Name> <Litres>";
@@ -53,14 +53,16 @@ public class DrinkCommand implements CommandExecutor {
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("info")){
-                if (args.length < 2 || args.length > 3) {
+                if (args.length < 1 || args.length > 3) {
                     sender.sendMessage(infoHelpMessage);
                     return true;
                 }
                 if(args.length == 2) {
                     Drink d = DrinkManager.getDrink(args[1]);
-                    sender.sendMessage(ChatColor.AQUA + "---------- " + d.displayName + ChatColor.AQUA + " ----------");
-                    sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + d.alcoholContent + "%");
+                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + d.displayName + ChatColor.GOLD + " ----------");
+                    sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
+                    sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
+                    return true;
                 }else if(args.length == 1){
                     if(sender instanceof Player){
                         Player player = (Player) sender;
@@ -71,10 +73,13 @@ public class DrinkCommand implements CommandExecutor {
                         }
                         if(lore.get(0).equalsIgnoreCase("drink")){
                             Drink drink = DrinkManager.getDrink(lore.get(1));
-                            sender.sendMessage(ChatColor.AQUA + "---------- " + drink.displayName + ChatColor.AQUA + " ----------");
+                            sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + drink.displayName + ChatColor.GOLD + " ----------");
                             sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + drink.alcoholContent + "%");
+                            sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + drink.name);
+                            return true;
                         } else {
                             sender.sendMessage(consoleCannotRunMessage);
+                            return true;
                         }
                     }
                 }

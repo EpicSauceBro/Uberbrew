@@ -74,7 +74,7 @@ public class DrinkManager {
 
         im.setLore(lore);
 
-        im.setDisplayName(drink.displayName);
+        im.setDisplayName(Main.getMainConfig().getString("drinkPrefix") + " " + drink.displayName);
 
         is.setItemMeta(im);
 
