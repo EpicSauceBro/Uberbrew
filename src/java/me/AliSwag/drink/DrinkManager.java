@@ -42,7 +42,7 @@ public class DrinkManager {
 
     public static void addDrinkToInventory(Drink drink, Player player, String litres) {
 
-        ItemStack is = new ItemStack(Material.GLASS_BOTTLE);
+        ItemStack is = new ItemStack(Material.POTATO_ITEM);
 
         ItemMeta im = is.getItemMeta();
 
