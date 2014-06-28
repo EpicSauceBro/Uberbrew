@@ -54,6 +54,19 @@ public class DrinkManager {
 
         Main.saveMainConfig();
     }
+
+    public static void editDrink(int percent, String displayName, String name){
+
+    }
+
+    public static void deleteDrink(String name){
+        drinks.remove(getDrink(name));
+        Main.getMainConfig().set(name, null);
+        List<String> drinkList = Main.getMainConfig().getStringList("drinks");
+        drinkList.remove(name);
+        Main.getMainConfig().set("drinks", drinkList);
+        Main.saveMainConfig();
+    }
 	
 	public static List<String> getDrinksNames(){
 		List<String> names = new ArrayList<String>();
