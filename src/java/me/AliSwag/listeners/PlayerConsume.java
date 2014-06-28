@@ -7,8 +7,10 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 public class PlayerConsume implements Listener {
 	@EventHandler
 	public void onPICE(PlayerItemConsumeEvent e){
-		if(e.getItem().getItemMeta().getLore().contains("Drink")){
-			e.getPlayer().sendMessage("U drank shit");
-		}
+        if(e.getItem().getItemMeta().hasLore()) {
+            if (e.getItem().getItemMeta().getLore().contains("Drink")) {
+                e.getPlayer().sendMessage("U drank shit");
+            }
+        }
 	}
 }
