@@ -1,0 +1,6 @@
+name: UberBrew
+version: 0.1
+main: me.AliSwag.Main
+commands:
+ uberbrew:
+  description: "AliSwag plugin"
