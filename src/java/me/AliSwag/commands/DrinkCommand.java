@@ -20,7 +20,7 @@ public class DrinkCommand implements CommandExecutor {
 		
 		if(label.equalsIgnoreCase("uberbrew")){
 			if(args[0].equalsIgnoreCase("add")){
-				if(args.length == 6 ){
+				if(args.length == 4 ){
 					DrinkManager.addDrink(Integer.parseInt(args[1]), ChatColor.translateAlternateColorCodes('&', args[2]), args[3]);
 					sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[3]));
 					return true;

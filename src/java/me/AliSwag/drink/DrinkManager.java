@@ -12,7 +12,6 @@ import java.util.List;
 public class DrinkManager {
 	
 	public static List<Drink> drinks = new ArrayList<Drink>();
-	public static List<String> drinkCategorys = new ArrayList<String>();
 	public static Drink getDrink(String name){
 		for(Drink d : drinks){
 			if(d.name.equalsIgnoreCase(name)){
@@ -25,7 +24,12 @@ public class DrinkManager {
 	public static void addDrink(int percent, String displayName, String name){
 		Drink d = new Drink(percent, displayName, name);
 		drinks.add(d);
-        Main.getMainConfig().set("", "");
+        List<String> drinks = Main.getMainConfig().getStringList("drinks");
+        if(!drinks.contains(name)) {
+            drinks.add(name);
+        }
+        Main.getMainConfig().set("drinks", drinks);
+        Main.saveMainConfig();
     }
 	
 	public static List<String> getDrinksNames(){
