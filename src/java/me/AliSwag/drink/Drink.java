@@ -11,4 +11,9 @@ public class Drink {
 		this.displayName = displayName;
 		this.name = name;
 	}
+
+    public int getAlcoholContent() { return this.alcoholContent; }
+    public String getName () {return this.name; }
+    public String getDisplayName() { return this.displayName; }
+
 }

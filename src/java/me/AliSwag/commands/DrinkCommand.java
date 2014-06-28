@@ -1,6 +1,5 @@
 package me.AliSwag.commands;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.AliSwag.drink.Drink;
@@ -116,7 +115,7 @@ public class DrinkCommand implements CommandExecutor {
                     return true;
                 }
                 if (drink == null || litres < 1) {
-                    sender.sendMessage("Enter a valid drink/litre amount!");
+                    sender.sendMessage(ChatColor.RED + "Enter a valid drink/litre amount!");
                     return true;
                 }
                 DrinkManager.addDrinkToInventory(drink, player, args[2]);
