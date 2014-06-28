@@ -3,5 +3,5 @@ version: 0.1
 main: me.AliSwag.Main
 commands:
  uberbrew:
-  description: "AliSwag plugin"
-  usage:
+  description: Main command for handling drinks.
+  usage: See /uberbew help!

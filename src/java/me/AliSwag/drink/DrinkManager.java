@@ -25,7 +25,7 @@ public class DrinkManager {
         for(String s : Main.getMainConfig().getStringList("drinks")){
             String displayName = Main.getMainConfig().getString(s + ".displayName");
             String name = Main.getMainConfig().getString(s + ".name");
-            int percent = Main.getMainConfig().getInt(s + "alcoholContent");
+            int percent = Main.getMainConfig().getInt(s + ".alcoholContent");
 
             Drink d = new Drink(percent, displayName, name);
 
