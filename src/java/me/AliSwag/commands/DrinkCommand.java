@@ -54,25 +54,8 @@ public class DrinkCommand implements CommandExecutor {
 			}
 			if(args[0].equalsIgnoreCase("give")){
 				Player player = (Player) sender;
-				
-				ItemStack is = new ItemStack(Material.GLASS_BOTTLE);
-				
-				ItemMeta im = is.getItemMeta();
-				
-				List<String> lore = im.getLore();
-				
-				lore.add("Drink");
-                lore.add(DrinkManager.getDrink(args[1]).name);
-				lore.add(DrinkManager.getDrink(args[1]).alcoholContent + "%");
-                lore.add(args[2]+" L");
-				
-				im.setLore(lore);
-
-                im.setDisplayName(DrinkManager.getDrink(args[1]).displayName);
-				
-				is.setItemMeta(im);
-				
-				player.getInventory().addItem(is);
+                Drink drink = DrinkManager.getDrink(args[1]);
+                DrinkManager.addDrinkToInventory(drink, player, args[2]);
 			}
 			return false;
 		}

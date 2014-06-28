@@ -1,6 +1,10 @@
 package me.AliSwag.drink;
 
 import me.AliSwag.Main;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +25,7 @@ public class DrinkManager {
 	public static void addDrink(int percent, String displayName, String name){
 		Drink d = new Drink(percent, displayName, name);
 		drinks.add(d);
-        Main.getMainConfig().set();
+        Main.getMainConfig().set("", "");
     }
 	
 	public static List<String> getDrinksNames(){
@@ -31,4 +35,27 @@ public class DrinkManager {
 		}
 		return names;
 	}
+
+    public static void addDrinkToInventory(Drink drink, Player player, String litres) {
+
+        ItemStack is = new ItemStack(Material.GLASS_BOTTLE);
+
+        ItemMeta im = is.getItemMeta();
+
+        List<String> lore = im.getLore();
+
+        lore.add("Drink");
+        lore.add(drink.name);
+        lore.add(drink.alcoholContent + "%");
+        lore.add(litres + " L");
+
+        im.setLore(lore);
+
+        im.setDisplayName(drink.displayName);
+
+        is.setItemMeta(im);
+
+        player.getInventory().addItem(is);
+    }
+
 }
