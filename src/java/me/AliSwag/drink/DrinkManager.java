@@ -21,6 +21,10 @@ public class DrinkManager {
 		return null;
 	}
 
+    public static Drink[] getDrinks() {
+        return (Drink[]) drinks.toArray();
+    }
+
     public static void loadDrinks(){
         for(String s : Main.getMainConfig().getStringList("drinks")){
             String displayName = Main.getMainConfig().getString(s + ".displayName");
