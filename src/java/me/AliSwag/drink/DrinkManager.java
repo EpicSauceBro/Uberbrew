@@ -46,7 +46,7 @@ public class DrinkManager {
 
         ItemMeta im = is.getItemMeta();
 
-        List<String> lore = im.getLore();
+        List<String> lore = new ArrayList<String>();
 
         lore.add("Drink");
         lore.add(drink.name);
