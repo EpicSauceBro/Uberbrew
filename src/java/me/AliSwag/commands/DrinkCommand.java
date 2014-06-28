@@ -20,12 +20,9 @@ public class DrinkCommand implements CommandExecutor {
 		
 		if(label.equalsIgnoreCase("uberbrew")){
 			if(args[0].equalsIgnoreCase("add")){
-				if(args.length == 6 && args[1].equalsIgnoreCase("drink")){
-					DrinkManager.addDrink(Integer.parseInt(args[2]), ChatColor.translateAlternateColorCodes('&', args[3]), args[4], args[5]);
+				if(args.length == 6 ){
+					DrinkManager.addDrink(Integer.parseInt(args[1]), ChatColor.translateAlternateColorCodes('&', args[2]), args[3]);
 					sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[3]));
-					return true;
-				}if(args.length == 3 && args[1].equalsIgnoreCase("category")){
-					DrinkManager.drinkCategorys.add(args[2]);
 					return true;
 				}
 				sender.sendMessage(ChatColor.RED + "Invaild arguments! Use: /drink add <AlchohlPercent> <DisplayName> <Name>");
@@ -34,16 +31,26 @@ public class DrinkCommand implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("list")){
 				String message = ChatColor.DARK_AQUA + "Drinks: " + ChatColor.RESET;
 				for(String s : DrinkManager.getDrinksNames()){
-					message += s + ", ";
+					message += "\n" + s + ", ";
 				}
 				sender.sendMessage(message);
 				return true;
 			}
-			if(args[0].equalsIgnoreCase("info") && args.length == 2){
-				Drink d = DrinkManager.getDrink(args[1]);
-				sender.sendMessage(ChatColor.AQUA + "---------- " + d.displayName + ChatColor.AQUA + " ----------");
-				sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + d.alcoholContent + "%");
-				sender.sendMessage(ChatColor.DARK_BLUE + "Category: " + d.type);
+			if(args[0].equalsIgnoreCase("info")){
+                if(args.length == 2) {
+                    Drink d = DrinkManager.getDrink(args[1]);
+                    sender.sendMessage(ChatColor.AQUA + "---------- " + d.displayName + ChatColor.AQUA + " ----------");
+                    sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + d.alcoholContent + "%");
+                }else if(args.length == 1){
+                    if(sender instanceof Player){
+                        Player p = (Player) sender;
+                        if(p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase("drink")){
+                            Drink d = DrinkManager.getDrink(p.getItemInHand().getItemMeta().getLore().get(1));
+                            sender.sendMessage(ChatColor.AQUA + "---------- " + d.displayName + ChatColor.AQUA + " ----------");
+                            sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + d.alcoholContent + "%");
+                        }
+                    }
+                }
 			}
 			if(args[0].equalsIgnoreCase("give")){
 				Player player = (Player) sender;
@@ -55,9 +62,13 @@ public class DrinkCommand implements CommandExecutor {
 				List<String> lore = im.getLore();
 				
 				lore.add("Drink");
+                lore.add(DrinkManager.getDrink(args[1]).name);
 				lore.add(DrinkManager.getDrink(args[1]).alcoholContent + "%");
+                lore.add(args[2]+" L");
 				
 				im.setLore(lore);
+
+                im.setDisplayName(DrinkManager.getDrink(args[1]).displayName);
 				
 				is.setItemMeta(im);
 				
