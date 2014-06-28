@@ -56,6 +56,12 @@ public class DrinkManager {
     }
 
     public static void editDrink(int percent, String displayName, String name){
+        Drink d = DrinkManager.getDrink(name);
+        d.name = name;
+        d.displayName = displayName;
+        d.alcoholContent = percent;
+        drinks.remove(DrinkManager.getDrink(name));
+        drinks.add(d);
 
     }
 
