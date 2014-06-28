@@ -6,13 +6,10 @@ import me.AliSwag.drink.Drink;
 import me.AliSwag.drink.DrinkManager;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class DrinkCommand implements CommandExecutor {
 
@@ -63,7 +60,7 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
                     sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
                     return true;
-                }else if(args.length == 1){
+                }else if(args.length == 1) {
                     if(sender instanceof Player){
                         Player player = (Player) sender;
                         List<String> lore = player.getItemInHand().getItemMeta().getLore();
@@ -71,7 +68,7 @@ public class DrinkCommand implements CommandExecutor {
                             sender.sendMessage(ChatColor.RED + "Have a valid drink in your hand!");
                             return true;
                         }
-                        if(lore.get(0).equalsIgnoreCase("drink")){
+                        if(lore.get(0).equalsIgnoreCase("drink")) {
                             Drink drink = DrinkManager.getDrink(lore.get(1));
                             sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + drink.displayName + ChatColor.GOLD + " ----------");
                             sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + drink.alcoholContent + "%");
@@ -95,12 +92,24 @@ public class DrinkCommand implements CommandExecutor {
                 }
 				Player player = (Player) sender;
                 Drink drink = DrinkManager.getDrink(args[1]);
+                long litres;
+                try {
+                    litres = Long.parseLong(args[2]);
+                }
+                catch (NumberFormatException ex) {
+                    sender.sendMessage(ChatColor.RED + "Litres cannot be negative/invalid!");
+                    return true;
+                }
+                if (drink == null || litres < 1) {
+                    sender.sendMessage("Enter a valid drink/litre amount!");
+                    return true;
+                }
                 DrinkManager.addDrinkToInventory(drink, player, args[2]);
 			}
-			return false;
+			return true;
 		}
 		
-		return false;
+		return true;
 	}
 
 }
