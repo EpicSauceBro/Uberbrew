@@ -1,7 +1,31 @@
 name: UberBrew
 version: 0.1
 main: me.AliSwag.Main
+permissions:
+    uberbrew.uberbrew:
+        description:
+        default: true
+    uberbrew.nodefault:
+        description:
+        default: false
+    uberbrew.add:
+        description:
+        default: op
+    uberbrew.give:
+        description:
+        default: op
+    uberbrew.delete:
+       description:
+       default: op
+    uberbrew.edit:
+       description:
+       default: op
+    uberbrew.help:
+       description:
+       default: true
 commands:
  uberbrew:
+  aliases: [ub]
   description: Main command for handling drinks.
   usage: See /uberbew help!
+  permission: uberbrew.uberbrew

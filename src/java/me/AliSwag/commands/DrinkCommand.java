@@ -1,5 +1,6 @@
 package me.AliSwag.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.AliSwag.drink.Drink;
@@ -17,15 +18,21 @@ public class DrinkCommand implements CommandExecutor {
     String listHelpMessage = "Usage: /uberbrew list";
     String infoHelpMessage = "Usage: /uberbrew info [Drink id]";
     String giveHelpMessage = "Usage: /uberbrew give <Drink Name> <Litres>";
+    String noPermissionMessage = "Sorry, you do not have permission for this! Contact a server admin if you believe you " +
+            "should!";
     String consoleCannotRunMessage = "You cannot run this part of the command, sorry!";
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(label.equalsIgnoreCase("uberbrew")){
+		if(label.equalsIgnoreCase("uberbrew")) {
             if (args.length < 1) {
                 sender.sendMessage("See /uberbrew help!");
                 return true;
             }
             if (args[0].equalsIgnoreCase("help")) {
+                if (!sender.hasPermission("uberbrew.help")) {
+                    sender.sendMessage(noPermissionMessage);
+                    return true;
+                }
                 sender.sendMessage(addHelpMessage);
                 sender.sendMessage(listHelpMessage);
                 sender.sendMessage(infoHelpMessage);
@@ -33,6 +40,10 @@ public class DrinkCommand implements CommandExecutor {
                 return true;
             }
 			if(args[0].equalsIgnoreCase("add")) {
+                if (!sender.hasPermission("uberbrew.add")) {
+                    sender.sendMessage(noPermissionMessage);
+                    return true;
+                }
                 if (args.length < 2 || args.length > 4) {
                     sender.sendMessage(ChatColor.RED + "Invaild arguments! " + addHelpMessage);
                     return true;
@@ -82,6 +93,10 @@ public class DrinkCommand implements CommandExecutor {
                 }
 			}
 			if(args[0].equalsIgnoreCase("give")){
+                if (!sender.hasPermission("uberbrew.give")) {
+                    sender.sendMessage(noPermissionMessage);
+                    return true;
+                }
                 if (!(sender instanceof Player)) {
                     sender.sendMessage(consoleCannotRunMessage);
                     return true;
@@ -108,7 +123,7 @@ public class DrinkCommand implements CommandExecutor {
 			}
 			return true;
 		}
-		
+
 		return true;
 	}
 
