@@ -36,7 +36,7 @@ public class DrinkCommand implements CommandExecutor {
                 return true;
             }
 			if(args[0].equalsIgnoreCase("add")) {
-                if (args.length < 1 || args.length > 4) {
+                if (args.length < 2 || args.length > 4) {
                     sender.sendMessage(ChatColor.RED + "Invaild arguments! " + addHelpMessage);
                     return true;
                 }
@@ -53,7 +53,7 @@ public class DrinkCommand implements CommandExecutor {
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("info")){
-                if (args.length < 1 || args.length > 2) {
+                if (args.length < 2 || args.length > 3) {
                     sender.sendMessage(infoHelpMessage);
                     return true;
                 }
@@ -84,7 +84,7 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(consoleCannotRunMessage);
                     return true;
                 }
-                if (args.length < 1 || args.length > 3) {
+                if (args.length < 2 || args.length > 3) {
                     sender.sendMessage(giveHelpMessage);
                     return true;
                 }
