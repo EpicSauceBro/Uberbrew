@@ -20,7 +20,19 @@ public class DrinkManager {
 		}
 		return null;
 	}
-	
+
+    public static void loadDrinks(){
+        for(String s : Main.getMainConfig().getStringList("drinks")){
+            String displayName = Main.getMainConfig().getString(s + ".displayName");
+            String name = Main.getMainConfig().getString(s + ".name");
+            int percent = Main.getMainConfig().getInt(s + "alcoholContent");
+
+            Drink d = new Drink(percent, displayName, name);
+
+            drinks.add(d);
+        }
+    }
+
 	public static void addDrink(int percent, String displayName, String name){
 		Drink d = new Drink(percent, displayName, name);
 		drinks.add(d);
@@ -29,6 +41,13 @@ public class DrinkManager {
             drinks.add(name);
         }
         Main.getMainConfig().set("drinks", drinks);
+
+        Main.getMainConfig().set(name + ".alcoholContent", percent);
+
+        Main.getMainConfig().set(name + ".displayName", displayName);
+
+        Main.getMainConfig().set(name + ".name", name);
+
         Main.saveMainConfig();
     }
 	

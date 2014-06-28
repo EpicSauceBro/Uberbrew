@@ -2,6 +2,7 @@ package me.AliSwag;
 
 import me.AliSwag.commands.DrinkCommand;
 
+import me.AliSwag.drink.DrinkManager;
 import me.AliSwag.listeners.PlayerConsume;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -21,6 +22,8 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PlayerConsume(), this);
 
 		getCommand("uberbrew").setExecutor(new DrinkCommand());
+
+        DrinkManager.loadDrinks();
 	}
 	
 	@Override
