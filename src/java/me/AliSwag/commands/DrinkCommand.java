@@ -47,12 +47,30 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Invaild arguments! " + addHelpMessage);
                     return true;
                 }
+<<<<<<< HEAD
 				DrinkManager.addDrink(Integer.parseInt(args[1]), args[2], args[3]);
 				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[2]));
                 Drink d = DrinkManager.getDrink(args[3]);
                 sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + d.displayName + ChatColor.GOLD + " ----------");
                 sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
                 sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
+=======
+                byte alcoholPercent;
+                try {
+                    alcoholPercent = Byte.parseByte(args[1]);
+                }
+                catch (NumberFormatException ex) {
+                    sender.sendMessage(ChatColor.RED + "You must use a valid integer!");
+                    return true;
+                }
+                if (alcoholPercent > 100 || alcoholPercent < 0) {
+                    sender.sendMessage(ChatColor.RED + "Please use a integer from 0 through 100!");
+                    return true;
+                }
+
+				DrinkManager.addDrink(alcoholPercent, args[2], args[3]);
+				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[3]));
+>>>>>>> 6785483acfc9c5ded6fc7e1a4456fc885f01cea8
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("list")) {
