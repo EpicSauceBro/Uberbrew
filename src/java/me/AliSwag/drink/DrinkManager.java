@@ -28,7 +28,7 @@ public class DrinkManager {
 
     public static void loadDrinks(){
         for(String s : Main.getMainConfig().getStringList("drinks")){
-            String displayName = Main.getMainConfig().getString(s + ".displayName");
+            String displayName = ChatColor.translateAlternateColorCodes('&', Main.getMainConfig().getString( s + ".displayName"));
             String name = Main.getMainConfig().getString(s + ".name");
             int percent = Main.getMainConfig().getInt(s + ".alcoholContent");
 
@@ -49,7 +49,7 @@ public class DrinkManager {
 
         Main.getMainConfig().set(name + ".alcoholContent", percent);
 
-        Main.getMainConfig().set(name + ".displayName", ChatColor.translateAlternateColorCodes('&', displayName));
+        Main.getMainConfig().set(name + ".displayName", displayName);
 
         Main.getMainConfig().set(name + ".name", name);
 

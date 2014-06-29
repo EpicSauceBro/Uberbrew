@@ -48,7 +48,11 @@ public class DrinkCommand implements CommandExecutor {
                     return true;
                 }
 				DrinkManager.addDrink(Integer.parseInt(args[1]), args[2], args[3]);
-				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[3]));
+				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[2]));
+                Drink d = DrinkManager.getDrink(args[3]);
+                sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + d.displayName + ChatColor.GOLD + " ----------");
+                sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
+                sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("list")) {
