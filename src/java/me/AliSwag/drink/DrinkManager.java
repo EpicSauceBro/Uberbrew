@@ -11,20 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DrinkManager {
-	
-	public static List<Drink> drinks = new ArrayList<Drink>();
-	public static Drink getDrink(String name){
-		for(Drink d : drinks){
-			if(d.name.equalsIgnoreCase(name)){
-				return d;
-			}
-		}
-		return null;
-	}
+
+    public static List<Drink> drinks = new ArrayList<Drink>();
+
+    public static Drink getDrink(String name) {
+        for (Drink d : drinks) {
+            if (d.name.equalsIgnoreCase(name)) {
+                return d;
+            }
+        }
+        return null;
+    }
 
     public static Drink[] getDrinks() {
         return (Drink[]) drinks.toArray();
     }
+
+    public static boolean isRegistered(String drinkName) { return getDrink(drinkName) == null ? false : true; }
+
 
     public static void loadDrinks(){
         for(String s : Main.getMainConfig().getStringList("drinks")){
@@ -38,7 +42,7 @@ public class DrinkManager {
         }
     }
 
-	public static void addDrink(int percent, String displayName, String name){
+	public static void addDrink(int percent, String displayName, String name) {
 		Drink d = new Drink(percent, displayName, name);
 		drinks.add(d);
         List<String> drinks = Main.getMainConfig().getStringList("drinks");
@@ -56,7 +60,7 @@ public class DrinkManager {
         Main.saveMainConfig();
     }
 
-    public static void editDrink(int percent, String displayName, String name){
+    public static void editDrink(int percent, String displayName, String name) {
         Drink d = DrinkManager.getDrink(name);
         d.name = name;
         d.displayName = displayName;
@@ -104,5 +108,4 @@ public class DrinkManager {
 
         player.getInventory().addItem(is);
     }
-
 }
