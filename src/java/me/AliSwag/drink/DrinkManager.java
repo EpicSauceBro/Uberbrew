@@ -61,13 +61,26 @@ public class DrinkManager {
     }
 
     public static void editDrink(int percent, String displayName, String name) {
-        Drink d = DrinkManager.getDrink(name);
-        d.name = name;
-        d.displayName = displayName;
-        d.alcoholContent = percent;
-        drinks.remove(DrinkManager.getDrink(name));
-        drinks.add(d);
+        Drink drink = DrinkManager.getDrink(name);
+        if (drink == null) { return; }
+        int drinkIndex = getDrinkIndex(drink);
+        if (drinkIndex == -1) {
+            return;
+        }
+        drink.name = name;
+        drink.displayName = displayName;
+        drink.alcoholContent = percent;
+        drinks.set(drinkIndex, drink);
+    }
 
+    private static int getDrinkIndex(Drink drink) {
+        for (int i = 0; i < drinks.size(); i++){
+            Drink possibleDrink = drinks.get(i);
+            if (possibleDrink == drink) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static void deleteDrink(String name){
