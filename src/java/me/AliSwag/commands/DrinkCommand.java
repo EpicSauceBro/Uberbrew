@@ -18,9 +18,10 @@ public class DrinkCommand implements CommandExecutor {
     String infoHelpMessage = "Usage: /uberbrew info [Drink id]";
     String giveHelpMessage = "Usage: /uberbrew give <Drink Name> <Litres>";
     String editHelpMessage = "Usage: /uberbrew edit <Name> <Alcohol Percent> <DisplayName> . Put 'same' if you want it to stay the same'";
-    String noPermissionMessage = "Sorry, you do not have permission for this! Contact a server admin if you believe you " +
+    String noPermissionMessage = ChatColor.RED + "Sorry, you do not have permission for this! Contact a server admin if you believe you " +
             "should!";
-    String consoleCannotRunMessage = "You cannot run this part of the command, sorry!";
+    String invaildDrink = ChatColor.RED + "That drink does not exist!";
+    String consoleCannotRunMessage = ChatColor.RED + "You cannot run this part of the command, sorry!";
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("uberbrew")) {
@@ -33,10 +34,12 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(noPermissionMessage);
                     return true;
                 }
+                sender.sendMessage("[§6Uberbrew Help§f]");
                 sender.sendMessage(addHelpMessage);
                 sender.sendMessage(listHelpMessage);
                 sender.sendMessage(infoHelpMessage);
                 sender.sendMessage(giveHelpMessage);
+                sender.sendMessage(editHelpMessage);
                 return true;
             }
 			if(args[0].equalsIgnoreCase("add")) {
@@ -73,9 +76,9 @@ public class DrinkCommand implements CommandExecutor {
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("list")) {
-				String message = ChatColor.DARK_AQUA + "Drinks: " + ChatColor.RESET;
-				for(String s : DrinkManager.getDrinksNames()){
-                            message += ", " + "\n" + ChatColor.translateAlternateColorCodes('&', s);
+				String message = "-------------- " + ChatColor.DARK_AQUA + "Drinks "+ ChatColor.WHITE +" --------------" + ChatColor.RESET;
+				for(Drink d : DrinkManager.drinks){
+                            message += ", " + "\n" + ChatColor.translateAlternateColorCodes('&', d.displayName) + "§f | " + ChatColor.DARK_GRAY + d.name;
 				}
 				sender.sendMessage(message.replaceFirst(", ", ""));
 				return true;
@@ -143,6 +146,10 @@ public class DrinkCommand implements CommandExecutor {
 			}
 
             if(args[0].equalsIgnoreCase("edit")){
+                if(!isDrinkValid(args[1])){
+                    sender.sendMessage(invaildDrink);
+                    return true;
+                }
                 if (!sender.hasPermission("uberbrew.edit")) {
                     sender.sendMessage(noPermissionMessage);
                     return true;
@@ -166,8 +173,21 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Please use a integer from 0 through 100!");
                     return true;
                 }
+                int args3;
+                String args2;
 
-                DrinkManager.editDrink(Integer.parseInt(args[3]), args[2], args[1]);
+                if(args[2].equalsIgnoreCase("same")){
+                    args2 = DrinkManager.getDrink(args[1]).displayName;
+                }else{
+                    args2 = args[2];
+                }
+                if(args[3].equalsIgnoreCase("same")){
+                    args3 = DrinkManager.getDrink(args[1]).alcoholContent;
+                }else{
+                    args3 = Integer.parseInt(args[3]);
+                }
+
+                DrinkManager.editDrink(args3, args2, args[1]);
 
                 sender.sendMessage(ChatColor.GREEN + "Successfully edited the drink: "+ ChatColor.translateAlternateColorCodes('&', drink.displayName));
                 sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', drink.displayName) + ChatColor.GOLD + " ----------");
@@ -175,10 +195,27 @@ public class DrinkCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + drink.name);
 
             }
+            else{
+                sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s does not exist!", args[0]));
+                sender.sendMessage("[§6Uberbrew Help§f]");
+                sender.sendMessage(addHelpMessage);
+                sender.sendMessage(listHelpMessage);
+                sender.sendMessage(infoHelpMessage);
+                sender.sendMessage(giveHelpMessage);
+                sender.sendMessage(editHelpMessage);
+                return true;
+            }
 			return true;
 		}
-
 		return true;
 	}
 
+    public boolean isDrinkValid(String Id){
+        for(Drink d : DrinkManager.drinks){
+            if(d.name.equalsIgnoreCase(Id)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
