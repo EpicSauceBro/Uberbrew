@@ -84,21 +84,22 @@ public class DrinkManager {
     }
 
 	public static void addDrink(int percent, String displayName, String name) {
-		Drink d = new Drink(percent, displayName, name);
-		drinks.add(d);
-        List<String> drinks = Main.getMainConfig().getStringList("drinks");
-        if(!drinks.contains(name)) {
-            drinks.add(name);
-        }
-        Main.getMainConfig().set("drinks", drinks);
 
-        Main.getMainConfig().set(name + ".alcoholContent", percent);
+            Drink d = new Drink(percent, displayName, name);
+            drinks.add(d);
+            List<String> derpyDrink = Main.getMainConfig().getStringList("drinks");
 
-        Main.getMainConfig().set(name + ".displayName", displayName);
+            derpyDrink.add(name);
 
-        Main.getMainConfig().set(name + ".name", name);
+            Main.getMainConfig().set("drinks", derpyDrink);
 
-        Main.saveMainConfig();
+            Main.getMainConfig().set(name + ".alcoholContent", percent);
+
+            Main.getMainConfig().set(name + ".displayName", displayName);
+
+            Main.getMainConfig().set(name + ".name", name);
+
+            Main.saveMainConfig();
     }
 
     public static void editDrink(int percent, String displayName, String name) {

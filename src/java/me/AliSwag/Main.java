@@ -46,8 +46,9 @@ public class Main extends JavaPlugin {
 
 		getCommand("uberbrew").setExecutor(new DrinkCommand());
 
-        DrinkManager.loadDrinks();
+        getConfig();
         main = this;
+        DrinkManager.loadDrinks();
 	}
 	
 	@Override
