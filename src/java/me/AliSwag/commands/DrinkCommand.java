@@ -129,7 +129,7 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(consoleCannotRunMessage);
                     return true;
                 }
-                if (args.length < 2 || args.length > 3) {
+                if (args.length != 3) {
                     sender.sendMessage(giveHelpMessage);
                     return true;
                 }
@@ -148,6 +148,7 @@ public class DrinkCommand implements CommandExecutor {
                     return true;
                 }
                 DrinkManager.addDrinkToInventory(drink, player, args[2]);
+                return true;
 			}
 
             if(args[0].equalsIgnoreCase("edit")){
@@ -201,7 +202,7 @@ public class DrinkCommand implements CommandExecutor {
 
             }
             if(args[0].equalsIgnoreCase("bac")){
-                sender.sendMessage("Blood Alcohol Content: " + String.valueOf(AlcoholContentManager.impairedPlayers.get((Player) sender).getAlcoholContent()) + "%");
+                sender.sendMessage("Blood Alcohol Content: " + String.valueOf(AlcoholContentManager.getOrSetInfluencedPlayer((Player) sender).getAlcoholContent()) + "%");
             }
             else{
                 sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s does not exist!", args[0]));

@@ -44,7 +44,11 @@ public class PlayerConsume implements Listener {
         if (litres < 1) return;
         player.sendMessage("You drank the drink " + drinkName + " that contained " + alcoholPercentString + " alcohol, and the drink was " +
                  processedLitersString + " litres!");
-        Byte alcoholToAdd = Byte.parseByte("" + (alcoholPercent * litres / 5.5));
+        double alcoholToAdd = alcoholPercent * litres / 5.5;
+        System.out.println(alcoholPercent);
+        System.out.println(litres);
+        System.out.println(alcoholPercent * litres / 5.5);
         AlcoholContentManager.addAlcohol(AlcoholContentManager.getOrSetInfluencedPlayer(event.getPlayer()), alcoholToAdd);
-	}
+        event.getPlayer().sendMessage("" + AlcoholContentManager.getOrSetInfluencedPlayer(event.getPlayer()).getAlcoholContent());
+    }
 }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
  */
 public class PlayerInfluencer {
 
-    public static void influencePlayer(Player player, byte alcoholContent) {
+    public static void influencePlayer(Player player, double alcoholContent) {
     	new InfluencedPlayer(player.getUniqueId(), alcoholContent);
     }
 

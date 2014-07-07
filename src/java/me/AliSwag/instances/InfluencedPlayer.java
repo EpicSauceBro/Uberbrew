@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
  */
 public class InfluencedPlayer {
 
-    private Byte alcoholContent = 0;
+    private double alcoholContent = 0;
     private UUID playerUUID = null;
 
     @SuppressWarnings("unused")
@@ -20,10 +20,10 @@ public class InfluencedPlayer {
     private InfluencedPlayer() {}
     
     public InfluencedPlayer(UUID playerUUID) {
-    	this(playerUUID, (byte) 0);
+    	this(playerUUID, (Integer) 0);
     }
 
-    public InfluencedPlayer(UUID playerUUID, byte alcoholContent) {
+    public InfluencedPlayer(UUID playerUUID, double alcoholContent) {
     	if (playerUUID == null) {
     		return;
     	}
@@ -35,7 +35,7 @@ public class InfluencedPlayer {
         alcoholContent = 0;
     }
 
-    public byte getAlcoholContent() {
+    public double getAlcoholContent() {
         return alcoholContent;
     }
 
@@ -43,7 +43,7 @@ public class InfluencedPlayer {
         return Bukkit.getPlayer(playerUUID);
     }
 
-    public void setAlcoholContent(byte alcoholContent) {
+    public void setAlcoholContent(double alcoholContent) {
         if (alcoholContent < 0) {
             alcoholContent = 0;
         }

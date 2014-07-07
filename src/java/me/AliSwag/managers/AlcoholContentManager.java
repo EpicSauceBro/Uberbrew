@@ -13,8 +13,8 @@ public class AlcoholContentManager {
 
     public static Map<Player,InfluencedPlayer> impairedPlayers = new HashMap<Player, InfluencedPlayer>();
 
-    public static void addAlcohol(InfluencedPlayer player, Byte alcoholToAdd) {
-    	player.setAlcoholContent(Byte.parseByte("" + player.getAlcoholContent() + alcoholToAdd));
+    public static void addAlcohol(InfluencedPlayer player, double alcoholToAdd) {
+    	player.setAlcoholContent(Integer.parseInt("" + player.getAlcoholContent() + alcoholToAdd));
         if(!impairedPlayers.containsKey(player)){
             impairedPlayers.put(player.getPlayer(), player);
         }
