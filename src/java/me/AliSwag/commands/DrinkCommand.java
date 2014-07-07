@@ -5,6 +5,7 @@ import java.util.List;
 import me.AliSwag.drink.Drink;
 import me.AliSwag.drink.DrinkManager;
 
+import me.AliSwag.threads.AlcoholContentManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -90,7 +91,7 @@ public class DrinkCommand implements CommandExecutor {
                 }
                 if(args.length == 2) {
                     Drink d = DrinkManager.getDrink(args[1]);
-                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + d.displayName + ChatColor.GOLD + " ----------");
+                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', d.displayName) + ChatColor.GOLD + " ----------");
                     sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
                     sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
                     return true;
@@ -195,8 +196,11 @@ public class DrinkCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + drink.name);
 
             }
+            if(args[0].equalsIgnoreCase("drunkness")){
+                sender.sendMessage("BAC: " + AlcoholContentManager.bac.get(sender));
+            }
             else{
-                sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s does not exist!", args[0]));
+                sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s "+ ChatColor.RED +" does not exist!", args[0]));
                 sender.sendMessage("[§6Uberbrew Help§f]");
                 sender.sendMessage(addHelpMessage);
                 sender.sendMessage(listHelpMessage);
