@@ -1,6 +1,6 @@
-package me.AliSwag.threads;
+package me.AliSwag;
 
-import me.AliSwag.InfluencedPlayer;
+import me.AliSwag.instances.InfluencedPlayer;
 
 import org.bukkit.entity.Player;
 

@@ -1,5 +1,6 @@
 package me.AliSwag.listeners;
 
+import me.AliSwag.managers.AlcoholContentManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -27,7 +28,6 @@ public class PlayerConsume implements Listener {
         String drinkName = lore.get(1);
         String alcoholPercentString = lore.get(2);
         String processedalcoholPercentString = alcoholPercentString.replaceAll("%", "");
-        System.out.println(processedalcoholPercentString);
         double alcoholPercent;
         try {
             alcoholPercent = Double.parseDouble(processedalcoholPercentString);
@@ -35,13 +35,16 @@ public class PlayerConsume implements Listener {
         catch (NumberFormatException ex) { return; }
         if (alcoholPercent > 100 || alcoholPercent < 1) return;
         String litresString = lore.get(3);
+        String processedLitersString = litresString.replaceAll(" L", "");
         long litres;
         try {
-            litres = Long.parseLong(litresString);
+            litres = Long.parseLong(processedLitersString);
         }
         catch (NumberFormatException ex) { return; }
         if (litres < 1) return;
         player.sendMessage("You drank the drink " + drinkName + " that contained " + alcoholPercentString + " alcohol, and the drink was " +
-                 litresString + " litres!");
+                 processedLitersString + " litres!");
+        Byte alcoholToAdd = Byte.parseByte("" + (alcoholPercent * litres / 5.5));
+        AlcoholContentManager.addAlcohol(AlcoholContentManager.getOrSetInfluencedPlayer(event.getPlayer()), alcoholToAdd);
 	}
 }

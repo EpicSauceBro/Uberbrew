@@ -2,8 +2,9 @@ package me.AliSwag.commands;
 
 import java.util.List;
 
-import me.AliSwag.drink.Drink;
-import me.AliSwag.drink.DrinkManager;
+import me.AliSwag.instances.Drink;
+import me.AliSwag.managers.AlcoholContentManager;
+import me.AliSwag.managers.DrinkManager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -198,6 +199,9 @@ public class DrinkCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + drink.alcoholContent + "%");
                 sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + drink.name);
 
+            }
+            if(args[0].equalsIgnoreCase("bac")){
+                sender.sendMessage("Blood Alcohol Content: " + String.valueOf(AlcoholContentManager.impairedPlayers.get((Player) sender).getAlcoholContent()) + "%");
             }
             else{
                 sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s does not exist!", args[0]));

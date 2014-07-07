@@ -7,9 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.AliSwag.commands.DrinkCommand;
-import me.AliSwag.drink.DrinkManager;
+import me.AliSwag.instances.InfluencedPlayer;
+import me.AliSwag.managers.DrinkManager;
 import me.AliSwag.listeners.PlayerConsume;
 
+import me.AliSwag.threads.SoberingThread;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -49,6 +51,7 @@ public class Main extends JavaPlugin {
         getConfig();
         main = this;
         DrinkManager.loadDrinks();
+        Bukkit.getServer().getScheduler().runTaskTimer(this, new SoberingThread(), 0, 6);
 	}
 	
 	@Override

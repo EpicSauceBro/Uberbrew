@@ -1,8 +1,9 @@
-package me.AliSwag;
+package me.AliSwag.instances;
 
 
 import java.util.UUID;
 
+import me.AliSwag.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,7 +12,7 @@ import org.bukkit.entity.Player;
  */
 public class InfluencedPlayer {
 
-    private byte alcoholContent = 0;
+    private Byte alcoholContent = 0;
     private UUID playerUUID = null;
 
     @SuppressWarnings("unused")

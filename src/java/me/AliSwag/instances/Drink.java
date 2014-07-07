@@ -1,4 +1,4 @@
-package me.AliSwag.drink;
+package me.AliSwag.instances;
 
 public class Drink {
 	
