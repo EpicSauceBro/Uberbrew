@@ -1,14 +1,15 @@
 package me.AliSwag.drink;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.AliSwag.Main;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DrinkManager {
 
@@ -22,6 +23,46 @@ public class DrinkManager {
         }
         return null;
     }
+    
+    public boolean isDrink(ItemStack itemstack) {
+    	if (itemstack == null) {
+    		return false;
+    	}
+    	if (itemstack.getType() != Material.POTION) {
+			return false;
+		}
+        ItemMeta im = itemstack.getItemMeta();
+        if (!im.hasLore()) {
+			return false;
+		}
+        List<String> lore = im.getLore();
+        if (lore.size() < 4) {
+			return false;
+		}
+        if (!ChatColor.stripColor(lore.get(0)).equalsIgnoreCase("drink")) {
+			return false;
+		}
+        String alcoholPercentString = lore.get(2);
+        double alcoholPercent;
+        try {
+            alcoholPercent = Double.parseDouble(alcoholPercentString);
+        }
+        catch (NumberFormatException ex) { return false; }
+        if (alcoholPercent > 100 || alcoholPercent < 1) {
+			return false;
+		}
+        String litresString = lore.get(3);
+        long litres;
+        try {
+            litres = Long.parseLong(litresString);
+        }
+        catch (NumberFormatException ex) { return false; }
+        if (litres < 1) {
+			return false;
+		}
+        return true;
+	}
+    
 
     public static Drink[] getDrinks() {
         return (Drink[]) drinks.toArray();

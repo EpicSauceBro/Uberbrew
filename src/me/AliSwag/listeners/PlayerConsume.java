@@ -1,6 +1,7 @@
 package me.AliSwag.listeners;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -17,6 +18,7 @@ public class PlayerConsume implements Listener {
 	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
         ItemStack itemstack = event.getItem();
+        if (itemstack.getType() != Material.POTION) return;
         ItemMeta im = itemstack.getItemMeta();
         if (!im.hasLore()) return;
         List<String> lore = im.getLore();
