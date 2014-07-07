@@ -22,6 +22,7 @@ public class DrinkCommand implements CommandExecutor {
             "should!";
     private String invaildDrink = ChatColor.RED + "That drink does not exist!";
     private String consoleCannotRunMessage = ChatColor.RED + "You cannot run this part of the command, sorry!";
+    private String drinkAlreadyExists = ChatColor.RED + "This drink already exists";
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("uberbrew")) {
@@ -47,16 +48,15 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(noPermissionMessage);
                     return true;
                 }
+                if(DrinkManager.getDrink(args[1]) != null) {
+                    sender.sendMessage(drinkAlreadyExists);
+                    return true;
+                }
                 if (args.length < 2 || args.length > 4) {
                     sender.sendMessage(ChatColor.RED + "Invaild arguments! " + addHelpMessage);
                     return true;
                 }
-				DrinkManager.addDrink(Integer.parseInt(args[3]), args[2], args[1]);
-				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[2]));
-                Drink d = DrinkManager.getDrink(args[3]);
-                sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', d.displayName) + ChatColor.GOLD + " ----------");
-                sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
-                sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
+
 
                 byte alcoholPercent;
                 try {
@@ -70,9 +70,13 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Please use a integer from 0 through 100!");
                     return true;
                 }
+                DrinkManager.addDrink(alcoholPercent, args[2], args[1]);
+                sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[2]));
+                Drink d = DrinkManager.getDrink(args[1]);
+                sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', d.displayName) + ChatColor.GOLD + " ----------");
+                sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
+                sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
 
-				DrinkManager.addDrink(alcoholPercent, args[2], args[1]);
-				sender.sendMessage(ChatColor.GREEN + "Successfully added the drink: "+ ChatColor.translateAlternateColorCodes('&', args[1]));
 				return true;
 			}
 			if(args[0].equalsIgnoreCase("list")) {
@@ -90,7 +94,7 @@ public class DrinkCommand implements CommandExecutor {
                 }
                 if(args.length == 2) {
                     Drink d = DrinkManager.getDrink(args[1]);
-                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + d.displayName + ChatColor.GOLD + " ----------");
+                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', d.displayName) + ChatColor.GOLD + " ----------");
                     sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
                     sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
                     return true;
@@ -104,7 +108,7 @@ public class DrinkCommand implements CommandExecutor {
                         }
                         if(lore.get(0).equalsIgnoreCase("drink")) {
                             Drink drink = DrinkManager.getDrink(lore.get(1));
-                            sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + drink.displayName + ChatColor.GOLD + " ----------");
+                            sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', drink.displayName) + ChatColor.GOLD + " ----------");
                             sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + drink.alcoholContent + "%");
                             sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + drink.name);
                             return true;
