@@ -146,7 +146,7 @@ public class DrinkCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Enter a valid drink/litre amount!");
                     return true;
                 }
-                DrinkManager.addDrinkToInventory(drink, player, args[1]);
+                DrinkManager.addDrinkToInventory(drink, player, args[2]);
 			}
 
             if(args[0].equalsIgnoreCase("edit")){

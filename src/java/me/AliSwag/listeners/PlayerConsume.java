@@ -26,9 +26,11 @@ public class PlayerConsume implements Listener {
         if (!ChatColor.stripColor(lore.get(0)).equalsIgnoreCase("drink")) return;
         String drinkName = lore.get(1);
         String alcoholPercentString = lore.get(2);
+        String processedalcoholPercentString = alcoholPercentString.replaceAll("%", "");
+        System.out.println(processedalcoholPercentString);
         double alcoholPercent;
         try {
-            alcoholPercent = Double.parseDouble(alcoholPercentString);
+            alcoholPercent = Double.parseDouble(processedalcoholPercentString);
         }
         catch (NumberFormatException ex) { return; }
         if (alcoholPercent > 100 || alcoholPercent < 1) return;
