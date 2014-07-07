@@ -1,43 +1,53 @@
 package me.AliSwag;
 
-import me.AliSwag.commands.DrinkCommand;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import me.AliSwag.commands.DrinkCommand;
 import me.AliSwag.drink.DrinkManager;
 import me.AliSwag.listeners.PlayerConsume;
-import me.AliSwag.threads.SoberingThread;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scheduler.BukkitWorker;
 
-import java.util.Map;
+import com.evilmidget38.NameFetcher;
+import com.evilmidget38.UUIDFetcher;
 
 public class Main extends JavaPlugin {
 
     static Main main;
     public static PluginManager pm;
-    public static Map<Player, InfluencedPlayer> influencedPlayers;
+    public static Map<UUID, InfluencedPlayer> influencedPlayers;
+    public static boolean serverOnline;
+    public static Logger logger;
+    
+    @Override
+    public void onLoad() {
+    	logger = getLogger();
+    }
+    
+    public static InfluencedPlayer getInfluencedPlayer(UUID playerUUID) {
+    	return influencedPlayers.get(playerUUID);
+    }
 
 	@Override
 	public void onEnable() {
-		main = this;
-        pm = this.getServer().getPluginManager();
+		serverOnline = Bukkit.getServer().getOnlineMode();
 
-        //Listeners
+        pm = getServer().getPluginManager();
+
         pm.registerEvents(new PlayerConsume(), this);
 
-        //Threads
-        this.getServer().getScheduler().runTaskTimer(this, new SoberingThread(), 0, 6);
-
-        //Commands
 		getCommand("uberbrew").setExecutor(new DrinkCommand());
 
         DrinkManager.loadDrinks();
+        main = this;
 	}
 	
 	@Override
@@ -45,6 +55,29 @@ public class Main extends JavaPlugin {
 
     public static FileConfiguration getMainConfig() {
         return main.getConfig();
+    }
+    
+    public static UUID getPlayerUniqueId(Player player) {
+    	String playerName = player.getName();
+    	if (serverOnline) {
+    		return player.getUniqueId();
+    	} else {
+    		try {
+				return UUIDFetcher.getUUIDOf(playerName);
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, "Error while retreiving UUID for " + playerName + "!");
+				return null;
+			}
+    	}
+    }
+    
+    public static String getPlayerName(UUID playerUUID) {
+    	try {
+			return new NameFetcher(Arrays.asList(playerUUID)).call().get(playerUUID);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Failed to retrieve name for " + playerUUID + "!");
+			return null;
+		}
     }
 
     public static void saveMainConfig() {

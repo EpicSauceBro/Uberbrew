@@ -5,7 +5,6 @@ import java.util.List;
 import me.AliSwag.drink.Drink;
 import me.AliSwag.drink.DrinkManager;
 
-import me.AliSwag.threads.AlcoholContentManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,15 +13,15 @@ import org.bukkit.entity.Player;
 
 public class DrinkCommand implements CommandExecutor {
 
-    String addHelpMessage = "Usage: /uberbrew add <Name> <DisplayName> <Alcohol Percent>";
-    String listHelpMessage = "Usage: /uberbrew list";
-    String infoHelpMessage = "Usage: /uberbrew info [Drink id]";
-    String giveHelpMessage = "Usage: /uberbrew give <Drink Name> <Litres>";
-    String editHelpMessage = "Usage: /uberbrew edit <Name> <Alcohol Percent> <DisplayName> . Put 'same' if you want it to stay the same'";
-    String noPermissionMessage = ChatColor.RED + "Sorry, you do not have permission for this! Contact a server admin if you believe you " +
+    private String addHelpMessage = "Usage: /uberbrew add <Name> <DisplayName> <Alcohol Percent>";
+    private String listHelpMessage = "Usage: /uberbrew list";
+    private String infoHelpMessage = "Usage: /uberbrew info [Drink id]";
+    private String giveHelpMessage = "Usage: /uberbrew give <Drink Name> <Litres>";
+    private String editHelpMessage = "Usage: /uberbrew edit <Name> <Alcohol Percent> <DisplayName> . Put 'same' if you want it to stay the same'";
+    private String noPermissionMessage = ChatColor.RED + "Sorry, you do not have permission for this! Contact a server admin if you believe you " +
             "should!";
-    String invaildDrink = ChatColor.RED + "That drink does not exist!";
-    String consoleCannotRunMessage = ChatColor.RED + "You cannot run this part of the command, sorry!";
+    private String invaildDrink = ChatColor.RED + "That drink does not exist!";
+    private String consoleCannotRunMessage = ChatColor.RED + "You cannot run this part of the command, sorry!";
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("uberbrew")) {
@@ -91,7 +90,7 @@ public class DrinkCommand implements CommandExecutor {
                 }
                 if(args.length == 2) {
                     Drink d = DrinkManager.getDrink(args[1]);
-                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', d.displayName) + ChatColor.GOLD + " ----------");
+                    sender.sendMessage(ChatColor.GOLD + "---------- " + ChatColor.RESET + d.displayName + ChatColor.GOLD + " ----------");
                     sender.sendMessage(ChatColor.YELLOW + "Alcohol Content: " + ChatColor.WHITE + d.alcoholContent + "%");
                     sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + d.name);
                     return true;
@@ -196,11 +195,8 @@ public class DrinkCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.DARK_GRAY + "Id: " + ChatColor.WHITE + drink.name);
 
             }
-            if(args[0].equalsIgnoreCase("drunkness")){
-                sender.sendMessage("BAC: " + AlcoholContentManager.bac.get(sender));
-            }
             else{
-                sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s "+ ChatColor.RED +" does not exist!", args[0]));
+                sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s does not exist!", args[0]));
                 sender.sendMessage("[§6Uberbrew Help§f]");
                 sender.sendMessage(addHelpMessage);
                 sender.sendMessage(listHelpMessage);
