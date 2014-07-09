@@ -52,6 +52,6 @@ public class InfluencedPlayer {
         }
 
         this.alcoholContent = alcoholContent;
-        Main.influencedPlayers.put(playerUUID, this);
+        //Main.influencedPlayers.put(playerUUID, this);
     }
 }
