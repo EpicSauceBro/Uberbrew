@@ -47,6 +47,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PlayerConsume(), this);
 
 		getCommand("uberbrew").setExecutor(new DrinkCommand());
+        getCommand("ub").setExecutor(new DrinkCommand());
 
         getConfig();
         main = this;

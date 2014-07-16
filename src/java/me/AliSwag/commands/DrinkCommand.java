@@ -203,6 +203,7 @@ public class DrinkCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("bac")){
                 sender.sendMessage("Blood Alcohol Content: " + String.valueOf(AlcoholContentManager.getOrSetInfluencedPlayer((Player) sender).getAlcoholContent()) + "%");
+                return true;
             }
             else{
                 sender.sendMessage(String.format(ChatColor.RED + "/uberbrew %s does not exist!", args[0]));
@@ -214,7 +215,6 @@ public class DrinkCommand implements CommandExecutor {
                 sender.sendMessage(editHelpMessage);
                 return true;
             }
-			return true;
 		}
 		return true;
 	}

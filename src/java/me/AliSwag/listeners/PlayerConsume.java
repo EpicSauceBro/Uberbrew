@@ -45,7 +45,6 @@ public class PlayerConsume implements Listener {
         player.sendMessage("You drank the drink " + drinkName + " that contained " + alcoholPercentString + " alcohol, and the drink was " +
                  processedLitersString + " litres!");
         double alcoholToAdd = alcoholPercent * litres / 5;
-        ChatColor.RED.
         /*System.out.println(alcoholPercent);
         System.out.println(litres);
         System.out.println(alcoholPercent * litres / 5);
