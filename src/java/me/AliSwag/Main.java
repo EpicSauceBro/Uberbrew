@@ -1,5 +1,6 @@
 package me.AliSwag;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
@@ -28,10 +29,15 @@ public class Main extends JavaPlugin {
     public static Map<UUID, InfluencedPlayer> influencedPlayers;
     public static boolean serverOnline;
     public static Logger logger;
-    
+    public static String path;
+    public static File influencedPlayersFolder;
+
+
     @Override
     public void onLoad() {
-    	logger = getLogger();
+        path = getDataFolder() + "/influencedPlayers";
+        influencedPlayers = new File(path);
+        logger = getLogger();
     }
     
     public static InfluencedPlayer getInfluencedPlayer(UUID playerUUID) {
